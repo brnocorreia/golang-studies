@@ -4,7 +4,11 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 )
+
+const numberMonitoring = 3
+const delay = 10
 
 func main() {
 	programIntroduction()
@@ -63,10 +67,26 @@ func commandMenu() {
 }
 
 func initMonitoring() {
-	var site string
-	fmt.Println("Insira a URL do site a ser monitorado:")
-	fmt.Scan(&site)
+	// fmt.Println("Insira a URL do site a ser monitorado:")
+	// fmt.Scan(&site)
 	fmt.Println("Monitorando...")
+	sites := []string{"https://www.alura.com.br", "https://www.caelum.com.br", "https://www.globo.com"}
+	fmt.Println(sites)
+
+	line()
+	for i := 0; i < numberMonitoring; i++ {
+		for i, site := range sites {
+			fmt.Println("Testando site", i, ":", site)
+			siteTester(site)
+		}
+		time.Sleep(delay * time.Second)
+		line()
+		fmt.Println("")
+	}
+
+}
+
+func siteTester(site string) {
 	resp, _ := http.Get(site)
 
 	if resp.StatusCode == 200 {
@@ -75,5 +95,5 @@ func initMonitoring() {
 		fmt.Println("O Site:", site, "está com problemas. Status Code:", resp.StatusCode)
 	}
 
-	line()
+	fmt.Println("")
 }
