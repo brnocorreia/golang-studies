@@ -8,3 +8,13 @@
 07/09/2021 15:34:02 - https://www.globo.com - Online: true
 07/09/2021 15:34:02 - https://www.caelum.com.br - Online: true
 07/09/2021 15:34:02 - https://www.gamersclub.com.br - Online: true
+07/09/2021 15:39:12 - https://www.alura.com.br - Online: true
+07/09/2021 15:39:12 - https://www.casadocodigo.com.br - Online: true
+07/09/2021 15:39:12 - https://www.globo.com - Online: true
+07/09/2021 15:39:12 - https://www.caelum.com.br - Online: true
+07/09/2021 15:39:13 - https://www.gamersclub.com.br - Online: true
+07/09/2021 15:39:16 - https://www.alura.com.br - Online: true
+07/09/2021 15:39:16 - https://www.casadocodigo.com.br - Online: true
+07/09/2021 15:39:16 - https://www.globo.com - Online: true
+07/09/2021 15:39:16 - https://www.caelum.com.br - Online: true
+07/09/2021 15:39:17 - https://www.gamersclub.com.br - Online: true
