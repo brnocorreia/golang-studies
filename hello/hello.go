@@ -1,25 +1,28 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
 const numberMonitoring = 3
-const delay = 10
+const delay = 5
 
 func main() {
 	programIntroduction()
 
-	line()
+	lineSpace()
 
 	for {
 
 		commandMenu()
 
-		line()
+		lineSpace()
 
 		command := commandSelector()
 
@@ -48,7 +51,7 @@ func programIntroduction() {
 
 }
 
-func line() {
+func lineSpace() {
 	fmt.Println("--------------------------------------")
 }
 
@@ -60,34 +63,36 @@ func commandSelector() int {
 
 func commandMenu() {
 	fmt.Println("Escolha um comando para prosseguir")
-	line()
+	lineSpace()
 	fmt.Println("1 - Iniciar Monitoramento")
 	fmt.Println("2 - Exibir Logs")
 	fmt.Println("3 - Sair do Programa")
 }
 
 func initMonitoring() {
-	// fmt.Println("Insira a URL do site a ser monitorado:")
-	// fmt.Scan(&site)
-	fmt.Println("Monitorando...")
-	sites := []string{"https://www.alura.com.br", "https://www.caelum.com.br", "https://www.globo.com"}
-	fmt.Println(sites)
 
-	line()
+	fmt.Println("Monitorando...")
+	sites := archiveSitesReader()
+
+	lineSpace()
 	for i := 0; i < numberMonitoring; i++ {
 		for i, site := range sites {
 			fmt.Println("Testando site", i, ":", site)
 			siteTester(site)
 		}
 		time.Sleep(delay * time.Second)
-		line()
+		lineSpace()
 		fmt.Println("")
 	}
 
 }
 
 func siteTester(site string) {
-	resp, _ := http.Get(site)
+	resp, err := http.Get(site)
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
 
 	if resp.StatusCode == 200 {
 		fmt.Println("O Site:", site, "foi carregado com sucesso!")
@@ -96,4 +101,34 @@ func siteTester(site string) {
 	}
 
 	fmt.Println("")
+}
+
+func archiveSitesReader() []string {
+
+	var sites []string
+
+	arquivo, err := os.Open("sites.txt")
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
+
+	reader := bufio.NewReader(arquivo)
+
+	for {
+
+		line, err := reader.ReadString('\n')
+		line = strings.TrimSpace(line)
+		sites = append(sites, line)
+
+		if err == io.EOF {
+			break
+		}
+
+	}
+
+	arquivo.Close()
+
+	return sites
+
 }
